@@ -96,29 +96,35 @@ if starting_line == ending_line
 
 # ELSE WE NEED TO CHANGE AT OXFORD CIRCUS...
 else
-	puts "* * * NOTICE * * *: YOU NEED TO CHANGE LINES AT OXFORD CIRCUS STATION!"
+	puts "* * * PASSENGER NOTICE * * *: YOU NEED TO CHANGE LINES AT OXFORD CIRCUS STATION!"
 	oxford_circus_index_start = tube_lines[starting_line].index("Oxford Circus")
 	distance_to_oxford_circus = (start_index - oxford_circus_index_start).abs 
-	puts "YOU NEED TO GO #{distance_to_oxford_circus} STOPS TO OXFORD CIRCUS"
+	puts "YOU NEED TO GO #{distance_to_oxford_circus} STOP(S) TO OXFORD CIRCUS"
 	oxford_circus_index_end = tube_lines[ending_line].index("Oxford Circus")
 	distance_from_oxford_circus = (end_index - oxford_circus_index_end).abs
-	puts "AFTER CHANGING LINES YOU HAVE #{distance_from_oxford_circus} MORE STOPS TO GO"
+	puts "AFTER CHANGING LINES YOU HAVE #{distance_from_oxford_circus} MORE STOP(S) TO GO"
 	if start_index <= oxford_circus_index_start
 		starting_line_stations = tube_lines[starting_line][start_index..(oxford_circus_index_start - 1)].join(", ")
 	else
 		station_stack = []
-		x = start_index - oxford_circus_index_start
+		x = ((tube_lines[starting_line].length) - 1) - start_index
 		x.times do
+			tube_lines[starting_line].pop
+		end
+		y = start_index - oxford_circus_index_start
+		y.times do
 			station_stack.push (tube_lines[starting_line].pop)
 		end
 		starting_line_stations = station_stack.join(", ")
-		binding.pry
 	end
 
 	if end_index >= oxford_circus_index_end
 		ending_line_stations = tube_lines[ending_line][oxford_circus_index_end..end_index].join(", ")
-		binding.pry
 	else
+		x = ((tube_lines[ending_line].length) - 1) - oxford_circus_index_end
+		x.times do
+			tube_lines[ending_line].pop
+		end
 		station_stack = []
 		y = (oxford_circus_index_end + 1) - end_index
 		y.times do
@@ -128,5 +134,4 @@ else
 	end
 
 	puts "YOUR STOPS ARE THE FOLLOWING: #{starting_line_stations} , #{ending_line_stations}"
-	binding.pry
 end
