@@ -89,6 +89,9 @@ end_index = tube_lines[ending_line].index(ending_station_capitalized)
 if starting_line == ending_line
 	distance = (end_index - start_index).abs
 	puts "YOU HAVE #{distance} STOPS TO GO"
+	binding.pry
+	starting_line_stations = tube_lines[starting_line][start_index..end_index].join(", ")
+	puts "YOUR STOPS ARE THE FOLLOWING: #{starting_line_stations}"
 else
 	puts "* * * NOTICE * * *: YOU NEED TO CHANGE LINES AT OXFORD CIRCUS STATION!"
 	oxford_circus_index = tube_lines[starting_line].index("Oxford Circus")
@@ -97,4 +100,7 @@ else
 	oxford_circus_index = tube_lines[ending_line].index("Oxford Circus")
 	distance_from_oxford_circus = (end_index - oxford_circus_index).abs
 	puts "AFTER CHANGING LINES YOU HAVE #{distance_from_oxford_circus} MORE STOPS TO GO"
+	starting_line_stations = 
+	ending_line_stations = 
+	puts "YOUR STOPS ARE THE FOLLOWING: #{starting_line_stations + ending_line_stations}"
 end
