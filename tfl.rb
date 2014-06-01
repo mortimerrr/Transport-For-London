@@ -87,10 +87,27 @@ end_index = tube_lines[ending_line].index(ending_station_capitalized)
 # IF STARTING LINE AND ENDING LINE ARE THE SAME PRINT OUT THE NUMBER OF STOPS AND STATION NAMES
 # ELSE WE NEED TO CHANGE AT OXFORD CIRCUS...
 if starting_line == ending_line
+	if end_index >= start_index
+		starting_line_stations = tube_lines[starting_line][start_index..end_index].join(", ")
+	else
+		x = ((tube_lines[starting_line].length) - 1) - start_index
+		binding.pry
+		x.times do
+			tube_lines[starting_line].pop
+		end
+		binding.pry
+		station_stack = []
+		a = (start_index + 1) - end_index
+		a.times do
+			station_stack.push (tube_lines[starting_line].pop)
+		end
+		starting_line_stations = station_stack.join(", ")
+		binding.pry	
+	end
 	distance = (end_index - start_index).abs
 	puts "YOU HAVE #{distance} STOPS TO GO"
-	starting_line_stations = tube_lines[starting_line][start_index..end_index].join(", ")
 	puts "YOUR STOPS ARE THE FOLLOWING: #{starting_line_stations}"
+	binding.pry
 else
 	puts "* * * NOTICE * * *: YOU NEED TO CHANGE LINES AT OXFORD CIRCUS STATION!"
 	oxford_circus_index_start = tube_lines[starting_line].index("Oxford Circus")
@@ -99,8 +116,30 @@ else
 	oxford_circus_index_end = tube_lines[ending_line].index("Oxford Circus")
 	distance_from_oxford_circus = (end_index - oxford_circus_index_end).abs
 	puts "AFTER CHANGING LINES YOU HAVE #{distance_from_oxford_circus} MORE STOPS TO GO"
-	starting_line_stations = tube_lines[starting_line][start_index..(oxford_circus_index_start - 1)].join(", ")
-	ending_line_stations = tube_lines[ending_line][oxford_circus_index_end..end_index].join(", ")
+	if start_index <= oxford_circus_index_start
+		starting_line_stations = tube_lines[starting_line][start_index..(oxford_circus_index_start - 1)].join(", ")
+	else
+		station_stack = []
+		x = start_index - oxford_circus_index_start
+		x.times do
+			station_stack.push (tube_lines[starting_line].pop)
+		end
+		starting_line_stations = station_stack.join(", ")
+		binding.pry
+	end
+
+	if end_index >= oxford_circus_index_end
+		ending_line_stations = tube_lines[ending_line][oxford_circus_index_end..end_index].join(", ")
+		binding.pry
+	else
+		station_stack = []
+		y = (oxford_circus_index_end + 1) - end_index
+		y.times do
+			station_stack.push (tube_lines[ending_line].pop)
+		end
+		ending_line_stations = station_stack.join(", ")
+	end
+
 	puts "YOUR STOPS ARE THE FOLLOWING: #{starting_line_stations} , #{ending_line_stations}"
 	binding.pry
 end
