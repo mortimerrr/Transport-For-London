@@ -12,18 +12,13 @@ puts "PLEASE CHOOSE YOUR STARTING LINE"
 puts "PLEASE TYPE VICTORIA, BAKERLOO OR CENTRAL AND PRESS ENTER"
 print prompt
 
-
 # CHOOSING STARTING LINE AND STARTING STATION
 starting_line = gets.strip.chomp.downcase
 
 while true 
 	case starting_line
-	  when "victoria"
-	  	puts "YOUR STARTING LINE IS #{starting_line.upcase}"
-	  when "bakerloo"
-	  	puts "YOUR STARTING LINE IS #{starting_line.upcase}"
-	  when "central"
-		puts "YOUR STARTING LINE IS #{starting_line.upcase}"  	
+	  when "victoria", "bakerloo", "central"
+	  	puts "YOUR STARTING LINE IS #{starting_line.upcase}" 	
 	  else
 		# in case of a typo alert the user and ask him to choose starting line again
 		puts "I DIDN'T QUITE GET THAT, YOU MAY HAVE MISTYPED IT, PLEASE CHOOSE AGAIN\!"
@@ -45,7 +40,6 @@ starting_station = gets.strip.chomp.downcase
 
 puts "YOUR STARTING STATION IS #{starting_station.upcase}"
 
-
 # CHOOSING ENDING LINE AND ENDING STATION
 puts "PLEASE CHOOSE YOUR ENDING LINE"
 puts "PLEASE TYPE VICTORIA, BAKERLOO OR CENTRAL AND PRESS ENTER"
@@ -54,12 +48,8 @@ ending_line = gets.strip.chomp.downcase
 
 while true
 	case ending_line
-	  when "victoria"
-	  	puts "YOUR ENDING LINE IS #{ending_line.upcase}"
-	  when "bakerloo"
-	  	puts "YOUR ENDING LINE IS #{ending_line.upcase}"
-	  when "central"
-			puts "YOUR ENDING LINE IS #{ending_line.upcase}"  	
+	  when "victoria", "bakerloo", "central"
+	  	puts "YOUR ENDING LINE IS #{ending_line.upcase}" 	
 	  else
 			puts "I DIDN'T QUITE GET THAT, YOU MAY HAVE MISTYPED IT, PLEASE CHOOSE AGAIN\!"
 			print prompt
@@ -84,30 +74,27 @@ start_index = tube_lines[starting_line].index(starting_station_capitalized)
 ending_station_capitalized = ending_station.split.map(&:capitalize).join(' ')
 end_index = tube_lines[ending_line].index(ending_station_capitalized)
 
-# IF STARTING LINE AND ENDING LINE ARE THE SAME PRINT OUT THE NUMBER OF STOPS AND STATION NAMES
-# ELSE WE NEED TO CHANGE AT OXFORD CIRCUS...
+# IF STARTING LINE AND ENDING LINE ARE THE SAME
 if starting_line == ending_line
 	if end_index >= start_index
 		starting_line_stations = tube_lines[starting_line][start_index..end_index].join(", ")
 	else
 		x = ((tube_lines[starting_line].length) - 1) - start_index
-		binding.pry
 		x.times do
 			tube_lines[starting_line].pop
 		end
-		binding.pry
 		station_stack = []
 		a = (start_index + 1) - end_index
 		a.times do
 			station_stack.push (tube_lines[starting_line].pop)
 		end
 		starting_line_stations = station_stack.join(", ")
-		binding.pry	
 	end
 	distance = (end_index - start_index).abs
 	puts "YOU HAVE #{distance} STOPS TO GO"
 	puts "YOUR STOPS ARE THE FOLLOWING: #{starting_line_stations}"
-	binding.pry
+
+# ELSE WE NEED TO CHANGE AT OXFORD CIRCUS...
 else
 	puts "* * * NOTICE * * *: YOU NEED TO CHANGE LINES AT OXFORD CIRCUS STATION!"
 	oxford_circus_index_start = tube_lines[starting_line].index("Oxford Circus")
