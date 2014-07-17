@@ -1,7 +1,7 @@
-TFL App
-=======
+### TFL App
+An assignment we did at the Full-Stack Ruby Web Development course at [We Got Coders](http://wegotcoders.com).
 
-# The Program
+#### The Program
 
 A simple command line app that plans a user's journey on the London Underground.
 
@@ -10,7 +10,7 @@ A simple command line app that plans a user's journey on the London Underground.
 * The program figures out the number of stops between the stations
 * The program figures out each of the stops between the stations and prints out the entire route
 
-# The Tube
+#### The Tube
 
 To keep things simple there are only 3 simplified lines (Victoria, Bakerloo and Central line), with one intersection at Oxford Circus between them.
 
